@@ -23,7 +23,8 @@ int main() {
     // 3 columns represent vector, list, and set
     long long results[2][4][3] = {0};
 
-    // Run the races 15 times
+    // Run all four races 15 times
+    // Each simulation starts with three empty containers
     for (int sim = 0; sim < SIMULATIONS; sim++) {
         vector<string> vec;
         list<string> lst;
@@ -259,7 +260,8 @@ int main() {
 
     /*****************************************************/
     //-----------------------------------------------------
-    // Display the final race results
+    // Display the average time for each race
+    // Divide the accumulated time by the number of simulations
     string raceNames[4] = {
         "Read",
         "Sort",
@@ -268,7 +270,6 @@ int main() {
     };
 
     cout << "\nNumber of simulations: " << SIMULATIONS << endl;
-    cout << "\nData Structures Races (average nanoseconds)\n";
 
     cout << left << setw(WIDTH) << "Operation"
          << right << setw(WIDTH) << "Vector"

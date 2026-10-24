@@ -16,7 +16,11 @@ const int WIDTH = 15;
 const int SIMULATIONS = 15;
 
 int main() {
-    // Store the time results for each race
+    // Store the time results in a 3D array
+    // results[0] stores the times for the current simulation
+    // results[1] stores the total times from all simulations
+    // 4 rows represent the four races
+    // 3 columns represent vector, list, and set
     long long results[2][4][3] = {0};
 
     // Run the races 15 times

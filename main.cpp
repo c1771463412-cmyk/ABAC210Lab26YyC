@@ -13,233 +13,245 @@ using namespace std;
 using namespace std::chrono;
 
 const int WIDTH = 15;
+const int SIMULATIONS = 15;
 
 int main() {
-    vector<string> vec;
-    list<string> lst;
-    set<string> st;
-
     // Store the time results for each race
-    long long results[4][3] = {0};
+    long long results[2][4][3] = {0};
 
-    //-------------
-    // Reading Race
-    //-------------
+    // Run the races 15 times
+    for (int sim = 0; sim < SIMULATIONS; sim++) {
+        vector<string> vec;
+        list<string> lst;
+        set<string> st;
+    
 
-    ifstream fin("codes.txt");
+        //-------------
+        // Reading Race
+        //-------------
 
-    if (!fin) {
-        cout << "Error opening file." << endl;
-        return 1;
-    }
+        ifstream fin("codes.txt");
 
-    string word;
+        if (!fin) {
+            cout << "Error opening file." << endl;
+            return 1;
+        }
 
-    // Start timing vector reading
-    auto start = high_resolution_clock::now();
+        string word;
 
-    while (fin >> word) {
-        vec.push_back(word);
-    }
+        // Start timing vector reading
+        auto start = high_resolution_clock::now();
 
-    // End timing vector reading
-    auto end = high_resolution_clock::now();
+        while (fin >> word) {
+            vec.push_back(word);
+        }
 
-    auto duration = duration_cast<nanoseconds>(end - start);
+        // End timing vector reading
+        auto end = high_resolution_clock::now();
 
-    results[0][0] = duration.count();
+        auto duration = duration_cast<nanoseconds>(end - start);
 
-    fin.close();
+        results[0][0][0] = duration.count();
 
-    //-----------------------------------------------------
-    // Open the file again for list reading
-    fin.open("codes.txt");
+        fin.close();
 
-    if (!fin) {
-        cout << "Error opening file." << endl;
-        return 1;
-    }
+        //-----------------------------------------------------
+        // Open the file again for list reading
+        fin.open("codes.txt");
 
-    // Start timing list reading
-    start = high_resolution_clock::now();
+        if (!fin) {
+            cout << "Error opening file." << endl;
+            return 1;
+        }
 
-    while (fin >> word) {
-        lst.push_back(word);
-    }
+        // Start timing list reading
+        start = high_resolution_clock::now();
 
-    // End timing list reading
-    end = high_resolution_clock::now();
+        while (fin >> word) {
+            lst.push_back(word);
+        }
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing list reading
+        end = high_resolution_clock::now();
 
-    results[0][1] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    fin.close();
+        results[0][0][1] = duration.count();
 
-    //-----------------------------------------------------
-    // Open the file again for set reading
-    fin.open("codes.txt");
+        fin.close();
 
-    if (!fin) {
-        cout << "Error opening file." << endl;
-        return 1;
-    }
+        //-----------------------------------------------------
+        // Open the file again for set reading
+        fin.open("codes.txt");
 
-    // Start timing set reading
-    start = high_resolution_clock::now();
+        if (!fin) {
+            cout << "Error opening file." << endl;
+            return 1;
+        }
 
-    while (fin >> word) {
-        st.insert(word);
-    }
+        // Start timing set reading
+        start = high_resolution_clock::now();
 
-    // End timing set reading
-    end = high_resolution_clock::now();
+        while (fin >> word) {
+            st.insert(word);
+        }
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing set reading
+        end = high_resolution_clock::now();
 
-    results[0][2] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    fin.close();
+        results[0][0][2] = duration.count();
 
-    //-------------
-    // Sorting Race
-    //-------------
+        fin.close();
 
-    // Start timing vector sorting
-    start = high_resolution_clock::now();
+        //-------------
+        // Sorting Race
+        //-------------
 
-    sort(vec.begin(), vec.end());
+        // Start timing vector sorting
+        start = high_resolution_clock::now();
 
-    // End timing vector sorting
-    end = high_resolution_clock::now();
+        sort(vec.begin(), vec.end());
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing vector sorting
+        end = high_resolution_clock::now();
 
-    results[1][0] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    //-----------------------------------------------------
-    // Start timing list sorting
-    start = high_resolution_clock::now();
+        results[0][1][0] = duration.count();
 
-    lst.sort();
+        //-----------------------------------------------------
+        // Start timing list sorting
+        start = high_resolution_clock::now();
 
-    // End timing list sorting
-    end = high_resolution_clock::now();
+        lst.sort();
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing list sorting
+        end = high_resolution_clock::now();
 
-    results[1][1] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    //-----------------------------------------------------
-    // Set is already sorted
-    long long setSortTime = -1;
+        results[0][1][1] = duration.count();
 
-    results[1][2] = setSortTime;
+        //-----------------------------------------------------
+        // Set is already sorted
+        long long setSortTime = -1;
 
-    //---------------
-    // Inserting Race
-    //---------------
+        results[0][1][2] = setSortTime;
 
-    // Start timing vector inserting
-    start = high_resolution_clock::now();
+        //---------------
+        // Inserting Race
+        //---------------
 
-    vec.insert(vec.begin() + vec.size() / 2, "TESTCODE");
+        // Start timing vector inserting
+        start = high_resolution_clock::now();
 
-    // End timing vector inserting
-    end = high_resolution_clock::now();
+        vec.insert(vec.begin() + vec.size() / 2, "TESTCODE");
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing vector inserting
+        end = high_resolution_clock::now();
 
-    results[2][0] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    //-----------------------------------------------------
-    // Find the middle of the list
-    auto it = lst.begin();
+        results[0][2][0] = duration.count();
 
-    for (int i = 0; i < lst.size() / 2; i++) {
-        it++;
-    }
+        //-----------------------------------------------------
+        // Find the middle of the list
+        auto it = lst.begin();
 
-    // Start timing list inserting
-    start = high_resolution_clock::now();
+        for (int i = 0; i < lst.size() / 2; i++) {
+            it++;
+        }
 
-    lst.insert(it, "TESTCODE");
+        // Start timing list inserting
+        start = high_resolution_clock::now();
 
-    // End timing list inserting
-    end = high_resolution_clock::now();
+        lst.insert(it, "TESTCODE");
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing list inserting
+        end = high_resolution_clock::now();
 
-    results[2][1] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    //-----------------------------------------------------
-    // Start timing set inserting
-    start = high_resolution_clock::now();
+        results[0][2][1] = duration.count();
 
-    st.insert("TESTCODE");
+        //-----------------------------------------------------
+        // Start timing set inserting
+        start = high_resolution_clock::now();
 
-    // End timing set inserting
-    end = high_resolution_clock::now();
+        st.insert("TESTCODE");
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing set inserting
+        end = high_resolution_clock::now();
 
-    results[2][2] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    //--------------
-    // Deleting Race
-    //--------------
+        results[0][2][2] = duration.count();
 
-    // Start timing vector deleting
-    start = high_resolution_clock::now();
+        //--------------
+        // Deleting Race
+        //--------------
 
-    vec.erase(vec.begin() + vec.size() / 2);
+        // Start timing vector deleting
+        start = high_resolution_clock::now();
 
-    // End timing vector deleting
-    end = high_resolution_clock::now();
+        vec.erase(vec.begin() + vec.size() / 2);
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing vector deleting
+        end = high_resolution_clock::now();
 
-    results[3][0] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    //-----------------------------------------------------
-    // Find the middle of the list
-    auto itDelete = lst.begin();
+        results[0][3][0] = duration.count();
 
-    for (int i = 0; i < lst.size() / 2; i++) {
-        itDelete++;
-    }
+        //-----------------------------------------------------
+        // Find the middle of the list
+        auto itDelete = lst.begin();
 
-    // Start timing list deleting
-    start = high_resolution_clock::now();
+        for (int i = 0; i < lst.size() / 2; i++) {
+            itDelete++;
+        }
 
-    lst.erase(itDelete);
+        // Start timing list deleting
+        start = high_resolution_clock::now();
 
-    // End timing list deleting
-    end = high_resolution_clock::now();
+        lst.erase(itDelete);
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing list deleting
+        end = high_resolution_clock::now();
 
-    results[3][1] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
 
-    //-----------------------------------------------------
-    // Find the middle of the set
-    auto itSetDelete = st.begin();
+        results[0][3][1] = duration.count();
 
-    for (int i = 0; i < st.size() / 2; i++) {
-        itSetDelete++;
-    }
+        //-----------------------------------------------------
+        // Find the middle of the set
+        auto itSetDelete = st.begin();
 
-    // Start timing set deleting
-    start = high_resolution_clock::now();
+        for (int i = 0; i < st.size() / 2; i++) {
+            itSetDelete++;
+        }
 
-    st.erase(itSetDelete);
+        // Start timing set deleting
+        start = high_resolution_clock::now();
 
-    // End timing set deleting
-    end = high_resolution_clock::now();
+        st.erase(itSetDelete);
 
-    duration = duration_cast<nanoseconds>(end - start);
+        // End timing set deleting
+        end = high_resolution_clock::now();
 
-    results[3][2] = duration.count();
+        duration = duration_cast<nanoseconds>(end - start);
+
+        results[0][3][2] = duration.count();
+
+        // Add the current results to the total times
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 3; j++) {
+                results[1][i][j] += results[0][i][j];
+            }
+        }
+    } // End of simulation loop
 
     /*****************************************************/
     //-----------------------------------------------------
@@ -262,7 +274,7 @@ int main() {
         cout << left << setw(WIDTH) << raceNames[i];
 
         for (int j = 0; j < 3; j++) {
-            cout << right << setw(WIDTH) << results[i][j];
+            cout << right << setw(WIDTH) << results[1][i][j];
         }
 
         cout << endl;

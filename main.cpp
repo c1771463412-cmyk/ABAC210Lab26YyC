@@ -12,7 +12,7 @@
 using namespace std;
 using namespace std::chrono;
 
-const int WIDTH = 15;
+const int WIDTH = 12;
 const int SIMULATIONS = 15;
 
 int main() {
@@ -271,13 +271,13 @@ int main() {
 
     cout << "\nNumber of simulations: " << SIMULATIONS << endl;
 
-    cout << left << setw(WIDTH) << "Operation"
+    cout << right << setw(WIDTH) << "Operation"
          << right << setw(WIDTH) << "Vector"
          << setw(WIDTH) << "List"
          << setw(WIDTH) << "Set" << endl;
 
     for (int i = 0; i < 4; i++) {
-        cout << left << setw(WIDTH) << raceNames[i];
+        cout << right << setw(WIDTH) << raceNames[i];
 
         for (int j = 0; j < 3; j++) {
             // Display the average time for each race

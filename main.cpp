@@ -139,8 +139,8 @@ int main() {
         results[0][1][1] = duration.count();
 
         //-----------------------------------------------------
-        // Set is already sorted
-        long long setSortTime = -1;
+        // Set is already sorted, so no sorting time is needed
+        long long setSortTime = 0;
 
         results[0][1][2] = setSortTime;
 
@@ -261,13 +261,14 @@ int main() {
     //-----------------------------------------------------
     // Display the final race results
     string raceNames[4] = {
-        "Reading",
-        "Sorting",
-        "Inserting",
-        "Deleting"
+        "Read",
+        "Sort",
+        "Insert",
+        "Delete"
     };
 
-    cout << "\nData Structures Races (nanoseconds)\n";
+    cout << "\nNumber of simulations: " << SIMULATIONS << endl;
+    cout << "\nData Structures Races (average nanoseconds)\n";
 
     cout << left << setw(WIDTH) << "Operation"
          << right << setw(WIDTH) << "Vector"
@@ -278,7 +279,8 @@ int main() {
         cout << left << setw(WIDTH) << raceNames[i];
 
         for (int j = 0; j < 3; j++) {
-            cout << right << setw(WIDTH) << results[1][i][j];
+            // Display the average time for each race
+            cout << right << setw(WIDTH) << results[1][i][j] / SIMULATIONS;
         }
 
         cout << endl;
